@@ -1,0 +1,33 @@
+{
+  "name": "learn-a-foreign-language-backend",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Backend of an Android application to learn a foreign language",
+  "author": {
+    "name": "Romain Pellerin",
+    "email": "contact@romainpellerin.eu",
+    "url": "http://romainpellerin.eu/"
+  },
+  "homepage": "http://romainpellerin.eu/",
+  "main": "server.js",
+  "scripts": {
+    "dev": "while inotifywait -r -e modify ./ ; do kill -9 $!; cd frontend; webpack; cd .. ; node server.js& done"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/openshift/origin-server"
+  },
+  "engines": {
+    "node": ">= 5.2.0",
+    "npm": ">= 2.14.1"
+  },
+  "dependencies": {
+    "body-parser": "^1.14.2",
+    "cookie-parser": "^1.4.0",
+    "express": "~4.13.3",
+    "jsonwebtoken": "^5.5.0",
+    "pg": "~4.4.3"
+  },
+  "devDependencies": {},
+  "bundleDependencies": []
+}
