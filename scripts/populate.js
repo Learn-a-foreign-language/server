@@ -1,4 +1,4 @@
-#!/usr/bin/env node 
+#!/usr/bin/env node
 
 'use strict';
 
@@ -13,10 +13,10 @@ function post(url, data, callback) {
         method: "POST",
         json: data
     },
-    function optionalCallback(error, httpResponse, body) {
-      if (error || (httpResponse.statusCode !== 201 && httpResponse.statusCode !== 204 && body.error !== 'Unique violation.')) {
+    function optionalCallback(err, httpResponse, body) {
+      if (err || (httpResponse.statusCode !== 201 && httpResponse.statusCode !== 204 && body && body.error !== 'Unique violation.')) {
         console.error('POST failed for:', JSON.stringify(data,null,'\t'));
-        callback && callback({error, httpResponse, body})
+        callback && callback({err, httpResponse, body})
       }
       //console.log('Upload successful!  Server responded with:', body);
       callback && callback(null, {httpResponse, body})
@@ -79,16 +79,21 @@ var main = function(error,data) {
     var array = data.split('\n');
     array = array.map(line => {
         var tmp = line.split('=').map(side => side.trim());
-        //console.log(tmp[0])
-        //console.log(tmp[1])
+        console.log("0:'"+tmp[0]+"'")
+        console.log("1:'"+tmp[1]+"'")
+        if (typeof tmp[1] === 'undefined') {
+            console.log("Returning empty");
+            return undefined;
+        }
         return {
             expression: tmp[0],
             meanings: (tmp[1]).split("//")
         }
+    }).filter(value => {
+        return typeof value !== 'undefined';
     });
-    
-    // TODO 
-    // - split meaning side with '//'
+
+    // TODO
     // - upload in a random order
     // - the script ask for email and password or can be provided as arguments
 
